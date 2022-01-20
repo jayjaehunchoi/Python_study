@@ -30,13 +30,18 @@ class Company:
         self.employees = employees
 
 
-if __name__ == '__main__':
+def make_work():
+    for employee in company.employees:
+        employee.work()
+
+
+def add_employees():
     jay = Developer()
     roy = Designer()
     koi = Analyst()
+    return [jay, roy, koi]
 
-    employees = [jay, roy, koi]
-    company = Company(employees)
 
-    for employee in company.employees:
-        employee.work()
+if __name__ == '__main__':
+    company = Company(add_employees())
+    make_work()
