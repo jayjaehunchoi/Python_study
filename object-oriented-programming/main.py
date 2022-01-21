@@ -5,14 +5,21 @@
 # 4. User 결제 로직 수정
 
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
+
+
+@dataclass
+class Product:
+    name: str
+    price: int
 
 
 class Store(ABC):
     @abstractmethod
     def __init__(self):
-        self.money = 0
+        self._money = 0
         self.name = ""
-        self.products = {}
+        self._products = {}
 
     @abstractmethod
     def show_product(self, product_id):
@@ -83,8 +90,8 @@ class User:
 
     def purchase_product(self, product_id):
         product = self.see_product(product_id=product_id)
-        price = product["price"]
-        if self._money >= price:
+        price = product.price
+        if self._check_money_enough(price):
             self._give_money(price)  # 사용자가 돈 내기
             try:
                 my_product = self.store.sell_product(product_id, price)
@@ -96,6 +103,9 @@ class User:
 
         else:
             raise Exception("잔돈이 부족합니다")
+
+    def _check_money_enough(self, price):
+        return self._money >= price
 
     def _give_money(self, money):
         self._money -= money
@@ -110,10 +120,11 @@ class User:
 if __name__ == "__main__":
     store = FruitStore(
         products={
-            1: {"name": "사과", "price": 1000},
-            2: {"name": "바나나", "price": 2000}
+            1: Product(name="사과", price=1000),
+            2: Product(name="바나나", price=2000)
         }
     )
     user = User(money=10000, store=store)
     user.purchase_product(product_id=1)
+    print(f"user의 잔돈 : {user.get_money()}")
     print(f"user가 구매한 상품 : {user.get_belongs()}")
