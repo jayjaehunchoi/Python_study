@@ -25,7 +25,7 @@ class User:
 
     def check_password(self, user_password):
         if self.user_password != user_password:
-            raise Exception("not authorization")
+            raise Exception("not authorized")
 
 
 class UserRepository:
