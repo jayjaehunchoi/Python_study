@@ -9,7 +9,7 @@ def fruit_store():
     return FruitStore(
         products={
             1: Product(name="사과", price=1000),
-            2: Product(name="바나나", price=2000)
+            2: Product(name="바나나", price=500000)
         }
     )
 
