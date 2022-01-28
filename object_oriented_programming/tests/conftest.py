@@ -33,6 +33,8 @@ def mock_products():
     }
 
 
+# pip install requests_mock > 빠르게 mock patch 할 수 있게 도와주는 라이브러리
+# 한 곳에 mocking이 필요한 request들을 모아서 외부 의존성을 참고하는 모든 테스트를 관리할 수 있다.
 @pytest.fixture(scope="function")
 def mock_api(requests_mock, mock_products):
     mock_product1 = mock_products[1]
