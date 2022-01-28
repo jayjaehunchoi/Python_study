@@ -66,6 +66,8 @@ class FruitStore(Store):
         return self._products.pop(product_id)
 
     def _return_money(self, money):
+        if self._money < money:
+            raise Exception("잔돈이 부족합니다.")
         self._money -= money
 
 
@@ -108,6 +110,8 @@ class User:
         return self._money >= price
 
     def _give_money(self, money):
+        if not self._check_money_enough(price=money):
+            raise Exception("금액이 부족합니다.")
         self._money -= money
 
     def _take_money(self, money):
